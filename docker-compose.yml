@@ -1,0 +1,20 @@
+services:
+  postgres:
+    image: postgres:17
+    container_name: you-never-see-camp-db
+
+    restart: unless-stopped
+
+    environment:
+      POSTGRES_DB: you_never_see_camp
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+
+    ports:
+      - "5433:5432"
+
+    volumes:
+      - camp_postgres_data:/var/lib/postgresql/data
+
+volumes:
+  camp_postgres_data:
