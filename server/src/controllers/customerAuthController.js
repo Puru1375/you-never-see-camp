@@ -314,19 +314,13 @@ const verifyOtp = async (req, res) => {
      * Local development:
      * secure = false
      */
-    res.cookie(
-      "customer_session",
-      sessionToken,
-      {
-        httpOnly: true,
-        secure:
-          process.env.NODE_ENV === "production",
-        sameSite: "lax",
-        maxAge:
-          30 * 60 * 1000,
-        path: "/",
-      }
-    );
+    res.cookie("customer_session", sessionToken, {
+  httpOnly: true,
+  secure: true,
+  sameSite: "none",
+  maxAge: 1000 * 60 * 60,
+  path: "/",
+});
 
     return res.json({
       success: true,
