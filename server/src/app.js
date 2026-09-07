@@ -13,9 +13,28 @@ app.use(
 );
 
 // Enable CORS for multiple origins
+const allowedOrigins = [
+  "https://www.devplatform.click",
+  "https://devplatform.click",
+  "https://you-never-see-camp.vercel.app",
+];
+
 app.use(
   cors({
-    origin: "*",
+    origin: function (origin, callback) {
+      // Allow requests without an Origin header
+      // such as Postman/server-to-server requests
+      if (!origin) {
+        return callback(null, true);
+      }
+
+      if (allowedOrigins.includes(origin)) {
+        return callback(null, true);
+      }
+
+      return callback(new Error("Not allowed by CORS"));
+    },
+    credentials: true,
   })
 );
 
