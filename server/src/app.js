@@ -15,8 +15,7 @@ app.use(
 // Enable CORS for multiple origins
 app.use(
   cors({
-    origin: [process.env.CLIENT_URL[0], process.env.CLIENT_URL[1]],
-    credentials: true,
+    origin: "*",
   })
 );
 
