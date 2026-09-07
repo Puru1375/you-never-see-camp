@@ -13,7 +13,7 @@ const PublicLayout = () => {
 
       <Footer />
 
-      <MobileBookingBar />
+      {/* <MobileBookingBar /> */}
 
     </div>
   );
