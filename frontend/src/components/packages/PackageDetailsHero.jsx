@@ -31,10 +31,10 @@ const PackageDetailsHero = ({ packageData }) => {
               All packages
             </Link>
 
-            <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.25em] text-gold-400">
+            {/* <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.25em] text-gold-400">
               <MapPin size={14} />
               7 Hills of Jungle
-            </div>
+            </div> */}
 
             <h1 className="mt-5 font-display text-5xl font-semibold leading-[1.05] text-white sm:text-6xl lg:text-7xl">
               {packageData.name}
@@ -50,9 +50,12 @@ const PackageDetailsHero = ({ packageData }) => {
                 {packageData.duration}
               </span>
 
+              {/* is accommodation value is true then show */}
+              {packageData.accommodation && (
               <span className="rounded-full border border-white/20 bg-white/10 px-4 py-2 text-xs text-white backdrop-blur-md">
                 {packageData.accommodation}
               </span>
+              )}
 
               <span className="rounded-full border border-white/20 bg-white/10 px-4 py-2 text-xs text-white backdrop-blur-md">
                 From ₹{packageData.base_price}

@@ -28,7 +28,7 @@ const Home = () => {
 
       <ReviewsSection />
 
-      <LocationSection />
+      {/* <LocationSection /> */}
 
       <BookingCTA />
     </main>

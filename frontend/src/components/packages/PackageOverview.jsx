@@ -14,36 +14,66 @@ const PackageOverview = ({ packageData }) => {
       label: "Duration",
       value: packageData.duration,
     },
-    {
-      icon: BedDouble,
-      label: "Accommodation",
-      value: packageData.accommodation,
-    },
+    // {
+    //   icon: BedDouble,
+    //   label: "Accommodation",
+    //   value: packageData.accommodation,
+    // },
     {
       icon: Utensils,
       label: "Meals",
-      value: `${packageData.meals.length} included`,
+      value: packageData.meals?.length
+        ? `${packageData.meals.length} included`
+        : null,
     },
     {
       icon: Users,
       label: "Capacity",
-      value: `Up to ${packageData.max_guests} guests`,
+      value: packageData.max_guests
+        ? `Up to ${packageData.max_guests} guests`
+        : null,
     },
   ];
+
+  const visibleDetails = details.filter((detail) => detail.value);
 
   return (
     <section className="bg-cream-50 py-12 sm:py-16">
       <Container>
-
-        <div className="grid grid-cols-2 overflow-hidden rounded-3xl border border-earth-900/10 bg-white lg:grid-cols-4">
-
-          {details.map((detail) => {
+        <div
+          className={`
+            grid
+            overflow-hidden
+            rounded-3xl
+            border
+            border-earth-900/10
+            bg-white
+            ${
+              visibleDetails.length === 3
+                ? "grid-cols-3"
+                : visibleDetails.length === 2
+                  ? "grid-cols-2"
+                  : "grid-cols-1"
+            }
+          `}
+        >
+          {visibleDetails.map((detail, index) => {
             const Icon = detail.icon;
 
             return (
               <div
                 key={detail.label}
-                className="border-b border-r border-earth-900/10 p-5 last:border-r-0 sm:p-7 lg:border-b-0"
+                className={`
+                  p-5
+                  sm:p-7
+                  border-earth-900/10
+
+                  ${
+                    index < visibleDetails.length - 1
+                      ? "border-r"
+                      : ""
+                  }
+                `}
               >
                 <Icon
                   size={22}
@@ -61,12 +91,11 @@ const PackageOverview = ({ packageData }) => {
               </div>
             );
           })}
-
         </div>
-
       </Container>
     </section>
   );
 };
 
 export default PackageOverview;
+

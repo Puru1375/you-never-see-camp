@@ -49,10 +49,10 @@ const Footer = () => {
 
             <div className="space-y-4 text-sm text-white/60">
 
-              <div className="flex gap-3">
+              {/* <div className="flex gap-3">
                 <MapPin size={18} className="shrink-0 text-fire-500" />
                 <span>7 Hills of Jungle</span>
-              </div>
+              </div> */}
 
               <a
                 href="tel:8849976804"
@@ -68,7 +68,7 @@ const Footer = () => {
               >
                 <Mail size={18} className="shrink-0 text-fire-500" />
                 <span className="break-all">
-                  youneverseecamp@gmail.com
+                  youneverseecamp00@gmail.com
                 </span>
               </a>
 

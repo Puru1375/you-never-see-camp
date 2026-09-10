@@ -2,7 +2,7 @@ import { Check, X } from "lucide-react";
 import Container from "../common/Container";
 import SectionHeading from "../common/SectionHeading";
 
-const PackageContent = ({ packageData }) => {
+const   PackageContent = ({ packageData }) => {
   return (
     <section className="bg-cream-50 pb-20 sm:pb-28">
       <Container>
@@ -69,7 +69,7 @@ const PackageContent = ({ packageData }) => {
             </div>
 
             {/* Inclusions */}
-            <div className="mt-14">
+            {/* <div className="mt-14">
               <h3 className="font-display text-2xl font-semibold text-earth-900">
                 What's included
               </h3>
@@ -89,7 +89,7 @@ const PackageContent = ({ packageData }) => {
                   </div>
                 ))}
               </div>
-            </div>
+            </div> */}
 
             {/* Exclusions */}
             {/* <div className="mt-14">

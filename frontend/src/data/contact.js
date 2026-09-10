@@ -4,10 +4,9 @@ export const contactInfo = {
   phones: [
     "8849976804",
     "8733967890",
-    "9173315837",
   ],
 
-  email: "youneverseecamp@gmail.com",
+  email: "youneverseecamp00@gmail.com",
 
   whatsapp: "8849976804",
 

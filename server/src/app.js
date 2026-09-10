@@ -17,6 +17,7 @@ const allowedOrigins = [
   "https://www.devplatform.click",
   "https://devplatform.click",
   "https://you-never-see-camp.vercel.app",
+  "http://localhost:5173",
 ];
 
 app.use(
