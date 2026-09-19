@@ -143,7 +143,7 @@ const PackageImages = ({ packageId, packageSlug }) => {
           });
 
         await uploadFileToS3(
-          upload.uploadUrl,
+          upload,
           file
         );
 

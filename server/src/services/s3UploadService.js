@@ -1,18 +1,13 @@
-const {
-  PutObjectCommand,
-  DeleteObjectCommand,
-} = require("@aws-sdk/client-s3");
-
-const {
-  getSignedUrl,
-} = require("@aws-sdk/s3-request-presigner");
-
-const {
-  s3Client,
-  bucket,
-} = require("../config/s3");
-
+const { createClient } = require("@supabase/supabase-js");
 const crypto = require("crypto");
+
+const supabase = createClient(
+  process.env.SUPABASE_URL,
+  process.env.SUPABASE_SERVICE_ROLE_KEY
+);
+
+const BUCKET = "camp-images";
+
 
 const ALLOWED_IMAGE_TYPES = {
   "image/jpeg": "jpg",
@@ -85,34 +80,34 @@ const createPresignedUploadUrl = async ({
   key,
   contentType,
 }) => {
-  const command = new PutObjectCommand({
-    Bucket: bucket,
-    Key: key,
-    ContentType: contentType,
-  });
+  const { data, error } = await supabase.storage
+    .from(BUCKET)
+    .createSignedUploadUrl(key);
 
-  return getSignedUrl(
-    s3Client,
-    command,
-    {
-      expiresIn: 300,
-    }
-  );
+  if (error) {
+    throw error;
+  }
+
+  return {
+    signedUrl: data.signedUrl,
+    token: data.token,
+    key,
+    contentType,
+  };
 };
 
 const deleteS3Object = async (key) => {
   if (!key) {
-    throw new Error(
-      "S3 object key is required"
-    );
+    throw new Error("Image key is required");
   }
 
-  const command = new DeleteObjectCommand({
-    Bucket: bucket,
-    Key: key,
-  });
+  const { error } = await supabase.storage
+    .from(BUCKET)
+    .remove([key]);
 
-  await s3Client.send(command);
+  if (error) {
+    throw error;
+  }
 
   return true;
 };

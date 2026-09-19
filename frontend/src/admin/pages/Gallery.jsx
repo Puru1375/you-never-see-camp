@@ -147,7 +147,7 @@ const Gallery = () => {
         });
 
         await uploadFileToS3(
-          upload.uploadUrl,
+          upload,
           file
         );
 

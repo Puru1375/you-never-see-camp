@@ -15,7 +15,7 @@ provider "aws" {
 
 resource "aws_s3_bucket" "camp_images" {
   bucket = var.bucket_name
-
+  force_destroy = true
   tags = {
     Project     = "You Never See Camp"
     Environment = var.environment

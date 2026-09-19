@@ -1,29 +1,22 @@
-const {
-  S3Client,
-  GetObjectCommand,
-} = require("@aws-sdk/client-s3");
+const { createClient } = require("@supabase/supabase-js");
 
-const { getSignedUrl } = require("@aws-sdk/s3-request-presigner");
+const supabase = createClient(
+  process.env.SUPABASE_URL,
+  process.env.SUPABASE_SERVICE_ROLE_KEY
+);
 
-const s3 = new S3Client({
-  region: process.env.AWS_REGION,
-  credentials: {
-    accessKeyId: process.env.AWS_ACCESS_KEY_ID,
-    secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
-  },
-});
+const BUCKET = "camp-images";
 
-const getImageUrl = async (s3Key, expiresIn = 3600) => {
-  if (!s3Key) return null;
+const getImageUrl = async (imageKey) => {
+  if (!imageKey) return null;
 
-  const command = new GetObjectCommand({
-    Bucket: process.env.AWS_S3_BUCKET,
-    Key: s3Key,
-  });
+  const {
+    data: { publicUrl },
+  } = supabase.storage
+    .from(BUCKET)
+    .getPublicUrl(imageKey);
 
-  return getSignedUrl(s3, command, {
-    expiresIn,
-  });
+  return publicUrl;
 };
 
 module.exports = {

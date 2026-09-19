@@ -1,6 +1,7 @@
 const API_BASE_URL =
   import.meta.env.VITE_API_URL ||
   "http://localhost:5000/api";
+import { supabase } from "../../config/supabase";
 
 const getAdminToken = () => {
   return localStorage.getItem("admin_token");
@@ -56,25 +57,42 @@ export const createPresignedUpload = async ({
 };
 
 export const uploadFileToS3 = async (
-  uploadUrl,
+  uploadData,
   file
 ) => {
-  const response = await fetch(
-    uploadUrl,
-    {
-      method: "PUT",
-      headers: {
-        "Content-Type": file.type,
-      },
-      body: file,
-    }
-  );
+  const {
+    key,
+    token,
+    contentType,
+  } = uploadData;
 
-  if (!response.ok) {
-    const details = await response.text().catch(() => "");
+  if (!key || !token) {
+    throw new Error(
+      "Invalid Supabase upload data"
+    );
+  }
+
+  const { error } = await supabase.storage
+    .from("camp-images")
+    .uploadToSignedUrl(
+      key,
+      token,
+      file,
+      {
+        contentType:
+          contentType || file.type,
+      }
+    );
+
+  if (error) {
+    console.error(
+      "Supabase upload error:",
+      error
+    );
 
     throw new Error(
-      details || "Failed to upload image to S3"
+      error.message ||
+        "Failed to upload image"
     );
   }
 
