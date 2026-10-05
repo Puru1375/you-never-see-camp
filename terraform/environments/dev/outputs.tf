@@ -63,3 +63,13 @@ output "ec2_security_group_id" {
   description = "EC2 application security group"
   value       = module.ec2.security_group_id
 }
+
+output "secret_arn" {
+  description = "ARN of application Secrets Manager secret"
+  value       = module.secrets.secret_arn
+}
+
+output "secret_name" {
+  description = "Name of application Secrets Manager secret"
+  value       = module.secrets.secret_name
+}

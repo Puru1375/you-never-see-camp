@@ -1,7 +1,5 @@
 resource "aws_instance" "app" {
-
-  ami = var.ami_id
-
+  ami           = var.ami_id
   instance_type = var.instance_type
 
   subnet_id = var.private_app_subnet_id
@@ -17,6 +15,8 @@ resource "aws_instance" "app" {
     {
       repository_url = var.repository_url
       app_port       = var.app_port
+      app_secret_arn = var.app_secret_arn
+      aws_region     = var.aws_region
     }
   )
 
@@ -24,16 +24,13 @@ resource "aws_instance" "app" {
 
   metadata_options {
     http_endpoint = "enabled"
-
-    http_tokens = "required"
+    http_tokens   = "required"
   }
 
   root_block_device {
     volume_size = 20
-
     volume_type = "gp3"
-
-    encrypted = true
+    encrypted   = true
   }
 
   tags = {

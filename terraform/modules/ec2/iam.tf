@@ -40,3 +40,31 @@ resource "aws_iam_instance_profile" "ec2_profile" {
 
   role = aws_iam_role.ec2_role.name
 }
+
+resource "aws_iam_policy" "secrets_read" {
+  name = "${var.project_name}-${var.environment}-secrets-read"
+
+  description = "Allow EC2 to read application secrets"
+
+  policy = jsonencode({
+    Version = "2012-10-17"
+
+    Statement = [
+      {
+        Effect = "Allow"
+
+        Action = [
+          "secretsmanager:GetSecretValue"
+        ]
+
+        Resource = var.app_secret_arn
+      }
+    ]
+  })
+}
+
+resource "aws_iam_role_policy_attachment" "secrets_read" {
+  role = aws_iam_role.ec2_role.name
+
+  policy_arn = aws_iam_policy.secrets_read.arn
+}

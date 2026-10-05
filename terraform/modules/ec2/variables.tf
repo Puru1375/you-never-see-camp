@@ -44,3 +44,13 @@ variable "app_port" {
   type        = number
   default     = 5000
 }
+
+variable "app_secret_arn" {
+  description = "ARN of application Secrets Manager secret"
+  type        = string
+}
+
+variable "aws_region" {
+  description = "AWS region"
+  type        = string
+}

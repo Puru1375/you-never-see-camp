@@ -60,7 +60,19 @@ module "ec2" {
 
   app_port = 5000
 
+  app_secret_arn = module.secrets.secret_arn
+
+  aws_region = "ap-south-1"
+
   depends_on = [
-    module.rds
+    module.rds,
+    module.secrets
   ]
+}
+
+module "secrets" {
+  source = "../../modules/secrets"
+
+  project_name = var.project_name
+  environment  = var.environment
 }
