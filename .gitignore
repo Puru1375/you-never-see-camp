@@ -30,3 +30,8 @@ schema.sql
 
 seed.sql
 
+
+terraform/.terraform/
+terraform/*.tfstate
+terraform/*.tfstate.*
+terraform/*.tfvars
