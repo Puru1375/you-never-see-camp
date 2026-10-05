@@ -1,5 +1,0 @@
-aws_region = "ap-south-1"
-
-bucket_name = "you-never-see-camp-images-dev"
-
-environment = "development"
