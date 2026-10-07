@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { Menu, X } from "lucide-react";
 import { Link } from "react-router-dom";
@@ -11,17 +12,15 @@ const Navbar = () => {
     { name: "Home", path: "/" },
     { name: "Packages", path: "/packages" },
     { name: "My Bookings", path: "/my-bookings" },
-    // { name: "Experiences", path: "/experiences" },
     { name: "Gallery", path: "/gallery" },
-        // { name: "About", path: "/about" },
-        // { name: "Contact", path: "/contact" },
   ];
 
   return (
-    <header className="absolute left-0 top-0 z-50 w-full">
+    <header className="fixed left-0 top-0 z-50 w-full">
       <Container>
         <nav className="mt-4 flex items-center justify-between rounded-2xl border border-white/10 bg-forest-950/70 px-4 py-3 shadow-2xl backdrop-blur-xl sm:px-6">
 
+          {/* Logo */}
           <Link to="/" className="flex items-center">
             <img
               src="/logo.png"
@@ -30,6 +29,7 @@ const Navbar = () => {
             />
           </Link>
 
+          {/* Desktop Navigation */}
           <div className="hidden items-center gap-7 lg:flex">
             {links.map((link) => (
               <Link
@@ -42,15 +42,16 @@ const Navbar = () => {
             ))}
 
             <Link to="/booking">
-  <Button
-    showIcon={false}
-    className="px-5 py-3"
-  >
-    Book Now
-  </Button>
-</Link>
+              <Button
+                showIcon={false}
+                className="px-5 py-3"
+              >
+                Book Now
+              </Button>
+            </Link>
           </div>
 
+          {/* Mobile Menu Button */}
           <button
             onClick={() => setMobileOpen(!mobileOpen)}
             className="rounded-xl p-2 text-white lg:hidden"
@@ -60,6 +61,7 @@ const Navbar = () => {
           </button>
         </nav>
 
+        {/* Mobile Menu */}
         {mobileOpen && (
           <div className="mt-2 rounded-2xl border border-white/10 bg-forest-950/95 p-5 shadow-2xl backdrop-blur-xl lg:hidden">
             <div className="flex flex-col gap-2">
